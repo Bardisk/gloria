@@ -6,6 +6,7 @@
 !*.yml
 !*.md
 !.gitignore
+!Makefile
 
 !/gloria
 !/pretrained

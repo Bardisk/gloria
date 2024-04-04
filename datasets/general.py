@@ -9,7 +9,7 @@ from torchvision.transforms import InterpolationMode
 from yacs.config import CfgNode
 
 # relative import
-from data_aug import RandomAugmentation
+from .data_aug import RandomAugmentation
 
 def build_transform(dataset_type, cfg):
     lower_type = dataset_type.lower()
@@ -114,6 +114,6 @@ class CXR_dataset(data.Dataset):
         return img, text, target
 
 # relative import, this module cant be executed as main module.
-if __name__ == '__main__':
-   dataset = CXR_dataset("vindr")
+# if __name__ == '__main__':
+#    dataset = CXR_dataset("vindr")
 
