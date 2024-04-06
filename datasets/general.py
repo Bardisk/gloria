@@ -48,11 +48,13 @@ class CXR_dataset(data.Dataset):
     def __init__(
         self,
         name,
+        device="cuda",
         ds_type="test",
         root="datasets",  # path of "datasets"
         proportion=1
     ):
         self.name = name
+        self.device = device
         self.ds_type = ds_type
         # turn the path into the specified dataset
         self.root = root = os.path.join(root, name)
@@ -111,7 +113,7 @@ class CXR_dataset(data.Dataset):
         labels = torch.Tensor(self.data[index]["labels"])
         target = labels
 
-        return img, text, target
+        return img.to(self.device), text, target.to(self.device)
 
 # relative import, this module cant be executed as main module.
 # if __name__ == '__main__':

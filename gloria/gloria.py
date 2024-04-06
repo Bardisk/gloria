@@ -230,12 +230,11 @@ def get_similarities(gloria_model, imgs, txts, similarity_type="both"):
     similarities = (local_similarities + global_similarities) / 2
 
     if similarity_type == "global":
-        return global_similarities.detach().cpu().numpy()
+        return global_similarities.detach()
     elif similarity_type == "local":
-        return local_similarities.detach().cpu().numpy()
+        return local_similarities.detach()
     else:
-        return similarities.detach().cpu().numpy()
-
+        return similarities.detach()
 
 def zero_shot_classification(gloria_model, imgs, cls_txt_mapping):
     """Load a GLoRIA pretrained classification model

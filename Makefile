@@ -10,7 +10,8 @@ endif
 OBJS = $(DATASETS:%=results/%_result.jsonl)
 
 # rule for a dataset
-results/%_result.jsonl: datasets/%/results.jsonl
+results/%_result.jsonl: datasets/%
+	python 
 
 # default target
 ALL: OBJS
