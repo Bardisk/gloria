@@ -4,6 +4,8 @@ basetime = time.time()
 def report_time(str=''):
   print(str + '\n' + f'time elapsed: {time.time() - basetime:.2f} s')
 
+import os
+import json
 import torch,gloria
 import numpy as np
 from sys import argv
@@ -65,10 +67,22 @@ for img, _, labels in loader:
   y_pred.append(probs)
   y_label.append(labels_pred)
   
-  break
+y_pred = torch.vstack(y_pred).cpu().numpy()
+y_label = torch.vstack(y_label).cpu().numpy()
+y_true = torch.vstack(y_true).cpu().numpy()
 
-y_pred = torch.vstack(y_pred)
-y_label = torch.vstack(y_label)
-y_true = torch.vstack(y_true)
+num_samples = y_pred.shape[0]
+json_data = []
+for i in range(num_samples):
+  sample_data = {
+      "id": i + 1,
+      "probabilities": y_pred[i, :].tolist(),
+      "labels": y_label[i, :].tolist(),
+      "ground_truth": y_true[i, :].tolist(),
+  }
+  json_data.append(sample_data)
+
+with open(os.path.join('results', name+'_result.json'), "w") as f:
+  json.dump(json_data, f)
 
 report_time('done')
